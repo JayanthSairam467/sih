@@ -3,7 +3,13 @@
  * All backend communication goes through this module.
  */
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+// On Vercel: leave empty so requests use relative paths → rewrites route to backend service.
+// Locally: set NEXT_PUBLIC_API_URL=http://localhost:8000 in .env.local (or falls back automatically).
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL ||
+  (typeof window !== "undefined" && window.location.hostname !== "localhost"
+    ? ""
+    : "http://localhost:8000");
 
 // ── Types ─────────────────────────────────────────────────────────
 
